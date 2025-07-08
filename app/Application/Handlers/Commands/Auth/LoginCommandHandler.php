@@ -23,7 +23,8 @@ class LoginCommandHandler
             throw new \Exception('Invalid credentials');
         }
 
-        $token = $user->createToken('auth-token')->plainTextToken;
+        //$token = $user->createToken('auth-token')->plainTextToken;
+        $token = $this->userRepository->generateTokenForUser($savedUser);
 
         return [
             'user' => [

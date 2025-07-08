@@ -87,7 +87,7 @@ class EloquentCustomerRepository implements CustomerRepositoryInterface
         return $this->model->destroy($id) > 0;
     }
 
-    private function toDomainEntity(EloquentCustomer $customer): DomainCustomer
+    public function toDomainEntity(EloquentCustomer $customer): DomainCustomer
     {
         return new DomainCustomer(
             $customer->id,

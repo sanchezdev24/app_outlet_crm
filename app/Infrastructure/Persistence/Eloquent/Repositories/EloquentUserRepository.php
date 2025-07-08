@@ -49,7 +49,7 @@ class EloquentUserRepository implements UserRepositoryInterface
         return $this->toDomainEntity($eloquentUser);
     }
 
-    private function toDomainEntity(EloquentUser $user): DomainUser
+    public function toDomainEntity(EloquentUser $user): DomainUser
     {
         return new DomainUser(
             $user->id,
@@ -60,5 +60,16 @@ class EloquentUserRepository implements UserRepositoryInterface
             $user->created_at,
             $user->updated_at
         );
+    }
+
+    public function generateTokenForUser(DomainUser $user): string
+    {
+        $eloquentUser = $this->model->find($user->getId());
+
+        if (!$eloquentUser) {
+            throw new UserNotFoundException("User not found for token generation");
+        }
+
+        return $eloquentUser->createToken('auth-token')->plainTextToken;
     }
 }

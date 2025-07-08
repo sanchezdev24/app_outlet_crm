@@ -34,16 +34,16 @@ return [
          * Package Service Providers...
          */
         Laravel\Sanctum\SanctumServiceProvider::class,
-        // NO AGREGUES TODAVÍA: App\Providers\DomainServiceProvider::class,
-        // NO AGREGUES TODAVÍA: App\Providers\CommandBusServiceProvider::class,
-        // NO AGREGUES TODAVÍA: App\Providers\QueryBusServiceProvider::class,
+        App\Providers\DomainServiceProvider::class,
+        App\Providers\CommandBusServiceProvider::class,
+        App\Providers\QueryBusServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
     ],

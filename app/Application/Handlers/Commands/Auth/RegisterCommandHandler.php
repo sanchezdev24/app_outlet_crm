@@ -33,7 +33,8 @@ class RegisterCommandHandler
         );
 
         $savedUser = $this->userRepository->save($user);
-        $token = $savedUser->createToken('auth-token')->plainTextToken;
+        //$token = $savedUser->createToken('auth-token')->plainTextToken;
+        $token = $this->userRepository->generateTokenForUser($savedUser);
 
         return [
             'user' => [
