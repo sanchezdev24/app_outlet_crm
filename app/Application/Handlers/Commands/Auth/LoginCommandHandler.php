@@ -24,7 +24,7 @@ class LoginCommandHandler
         }
 
         //$token = $user->createToken('auth-token')->plainTextToken;
-        $token = $this->userRepository->generateTokenForUser($savedUser);
+        $token = $this->userRepository->generateTokenForUser($user);
 
         return [
             'user' => [

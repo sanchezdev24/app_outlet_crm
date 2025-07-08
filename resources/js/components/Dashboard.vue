@@ -133,6 +133,7 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 
+// Valores por defecto para prevenir undefined
 const stats = ref({
   totalCustomers: 0,
   totalProducts: 0,
@@ -140,12 +141,52 @@ const stats = ref({
   monthlyRevenue: '0.00'
 })
 
+// Estado de carga (opcional)
+const loading = ref(false)
+
 onMounted(async () => {
+  await loadStats()
+})
+
+const loadStats = async () => {
+  loading.value = true
   try {
+    console.log(axios.defaults.headers.common)
+    // Vamos a verificar qué está pasando
+    console.log("Debugging steps:")
+    console.log("1. Token presente:", !!localStorage.getItem('auth_token'))
+    console.log("2. Token value:", localStorage.getItem('auth_token'))
+    console.log("3. Current URL:", window.location.href)
     const response = await axios.get('/dashboard/stats')
-    stats.value = response.data.data
+    
+    // Debug: ver qué datos llegan
+    console.log('API Response:', response.data)
+    
+    // Verificar que response.data.data existe
+    if (response.data && response.data.data) {
+      const apiData = response.data.data
+      
+      // Actualizar solo las propiedades que existen, manteniendo valores por defecto
+      stats.value = {
+        totalCustomers: apiData.totalCustomers ?? 0,
+        totalProducts: apiData.totalProducts ?? 0,
+        monthlySales: apiData.monthlySales ?? 0,
+        monthlyRevenue: apiData.monthlyRevenue ?? '0.00'
+      }
+    } else {
+      // Si no viene la estructura esperada, usar valores por defecto
+      console.warn('API response does not contain expected data structure')
+    }
   } catch (error) {
     console.error('Error loading dashboard stats:', error)
+    
+    // En caso de error, mantener valores por defecto
+    // Opcional: mostrar mensaje de error al usuario
+    if (error.response) {
+      console.error('API Error:', error.response.status, error.response.data)
+    }
+  } finally {
+    loading.value = false
   }
-})
+}
 </script>

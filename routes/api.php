@@ -39,6 +39,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('brands', BrandController::class);
     
     // Sales
-    Route::apiResource('sales', SaleController::class);
-    Route::get('sales/customer/{customer}', [SaleController::class, 'getByCustomer']);
+    //Route::apiResource('sales', SaleController::class);
+    //Route::get('sales/customer/{customer}', [SaleController::class, 'getByCustomer']);
 });

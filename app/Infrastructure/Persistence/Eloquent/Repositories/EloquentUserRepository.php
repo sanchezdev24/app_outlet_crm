@@ -3,10 +3,10 @@
 namespace App\Infrastructure\Persistence\Eloquent\Repositories;
 
 use App\Domain\Auth\Entities\User as DomainUser;
+use App\Infrastructure\Persistence\Eloquent\Models\User as EloquentUser;
 use App\Domain\Auth\Repositories\UserRepositoryInterface;
 use App\Domain\Auth\ValueObjects\Email;
 use App\Domain\Auth\ValueObjects\Password;
-use App\Infrastructure\Persistence\Eloquent\Models\User as EloquentUser;
 
 class EloquentUserRepository implements UserRepositoryInterface
 {
@@ -67,7 +67,7 @@ class EloquentUserRepository implements UserRepositoryInterface
         $eloquentUser = $this->model->find($user->getId());
 
         if (!$eloquentUser) {
-            throw new UserNotFoundException("User not found for token generation");
+            throw new \Exception('User not found for token generation');
         }
 
         return $eloquentUser->createToken('auth-token')->plainTextToken;
