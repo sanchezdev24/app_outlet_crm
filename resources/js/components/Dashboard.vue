@@ -151,16 +151,7 @@ onMounted(async () => {
 const loadStats = async () => {
   loading.value = true
   try {
-    console.log(axios.defaults.headers.common)
-    // Vamos a verificar qué está pasando
-    console.log("Debugging steps:")
-    console.log("1. Token presente:", !!localStorage.getItem('auth_token'))
-    console.log("2. Token value:", localStorage.getItem('auth_token'))
-    console.log("3. Current URL:", window.location.href)
     const response = await axios.get('/dashboard/stats')
-    
-    // Debug: ver qué datos llegan
-    console.log('API Response:', response.data)
     
     // Verificar que response.data.data existe
     if (response.data && response.data.data) {
