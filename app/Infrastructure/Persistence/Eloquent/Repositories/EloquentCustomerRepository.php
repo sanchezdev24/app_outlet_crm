@@ -54,8 +54,12 @@ class EloquentCustomerRepository implements CustomerRepositoryInterface
                           ->limit($perPage)
                           ->get();
 
+        $domainCustomers = $customers->map(function ($customer) {
+            return $this->toDomainEntity($customer);
+        });
+
         return [
-            'data' => $customers->map(fn($customer) => $this->toDomainEntity($customer))->toArray(),
+            'data' => $domainCustomers->toArray(),
             'total' => $total,
             'page' => $page,
             'per_page' => $perPage,

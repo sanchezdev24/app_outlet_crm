@@ -2,7 +2,9 @@
 
 namespace App\Domain\Customer\ValueObjects;
 
-class CustomerType
+use JsonSerializable;
+
+class CustomerType implements JsonSerializable
 {
     public const REGULAR = 'regular';
     public const VIP = 'vip';
@@ -34,6 +36,12 @@ class CustomerType
     }
 
     public function __toString(): string
+    {
+        return $this->value;
+    }
+
+    // MÉTODO REQUERIDO para JsonSerializable
+    public function jsonSerialize(): mixed
     {
         return $this->value;
     }

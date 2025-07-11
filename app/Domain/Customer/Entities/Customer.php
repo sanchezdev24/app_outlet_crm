@@ -4,8 +4,9 @@ namespace App\Domain\Customer\Entities;
 
 use App\Domain\Customer\ValueObjects\CustomerType;
 use App\Domain\Customer\ValueObjects\ContactInfo;
+use JsonSerializable;
 
-class Customer
+class Customer implements JsonSerializable
 {
     private int $id;
     private string $name;
@@ -101,5 +102,30 @@ class Customer
     {
         $this->type = $type;
         $this->updatedAt = new \DateTime();
+    }
+
+    // Implementar JsonSerializable para serialización correcta
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'last_name' => $this->lastName,
+            'full_name' => $this->name . ' ' . $this->lastName,
+            'email' => $this->contactInfo->getEmail(),
+            'phone' => $this->contactInfo->getPhone(),
+            'address' => $this->contactInfo->getAddress(),
+            'type' => $this->type->getValue(),
+            'birth_date' => $this->birthDate?->format('Y-m-d'),
+            'is_active' => $this->isActive,
+            'created_at' => $this->createdAt,
+            'updated_at' => $this->updatedAt,
+        ];
+    }
+
+    // Método alternativo toArray() si prefieres no usar JsonSerializable
+    public function toArray(): array
+    {
+        return $this->jsonSerialize();
     }
 }

@@ -2,7 +2,9 @@
 
 namespace App\Domain\Customer\ValueObjects;
 
-class ContactInfo
+use JsonSerializable;
+
+class ContactInfo implements JsonSerializable
 {
     private string $email;
     private string $phone;
@@ -31,5 +33,15 @@ class ContactInfo
     public function getAddress(): string
     {
         return $this->address;
+    }
+
+    // MÉTODO REQUERIDO para JsonSerializable
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'address' => $this->address,
+        ];
     }
 }
