@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Domain\Product\ValueObjects;
+use JsonSerializable;
 
-class Discount
+class Discount implements JsonSerializable
 {
     private float $percentage;
     private ?\DateTime $validUntil;
@@ -40,5 +41,13 @@ class Discount
             return $price->getValue();
         }
         return $price->getValue() * (1 - $this->percentage / 100);
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'percentage' => $this->percentage,
+            'validUntil' => $this->validUntil,
+        ];
     }
 }

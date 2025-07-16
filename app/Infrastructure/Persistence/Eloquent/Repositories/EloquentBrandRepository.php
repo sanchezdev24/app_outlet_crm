@@ -3,7 +3,7 @@
 namespace App\Infrastructure\Persistence\Eloquent\Repositories;
 
 use App\Domain\Product\Repositories\BrandRepositoryInterface;
-use App\Infrastructure\Models\Brand;
+use App\Infrastructure\Persistence\Eloquent\Models\Brand;
 
 class EloquentBrandRepository implements BrandRepositoryInterface
 {
@@ -12,7 +12,7 @@ class EloquentBrandRepository implements BrandRepositoryInterface
         $query = Brand::query();
         
         if ($active !== null) {
-            $query->where('active', $active);
+            $query->where('is_active', $active);
         }
         
         return $query->get()->toArray();

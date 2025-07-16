@@ -110,16 +110,18 @@ class Customer implements JsonSerializable
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'last_name' => $this->lastName,
-            'full_name' => $this->name . ' ' . $this->lastName,
+            'lastName' => $this->lastName,
+            'fullName' => $this->name . ' ' . $this->lastName,
             'email' => $this->contactInfo->getEmail(),
             'phone' => $this->contactInfo->getPhone(),
             'address' => $this->contactInfo->getAddress(),
             'type' => $this->type->getValue(),
-            'birth_date' => $this->birthDate?->format('Y-m-d'),
-            'is_active' => $this->isActive,
-            'created_at' => $this->createdAt,
-            'updated_at' => $this->updatedAt,
+            'birthDate' => $this->birthDate?->format('Y-m-d'),
+            'isActive' => $this->isActive,
+            'createdAt' => $this->createdAt,
+            'updatedAt' => $this->updatedAt,
+            'contactInfo' => $this->contactInfo,
+            //'type' => $this->type,
         ];
     }
 

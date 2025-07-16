@@ -4,7 +4,7 @@
 namespace App\Infrastructure\Persistence\Eloquent\Repositories;
 
 use App\Domain\Product\Repositories\CategoryRepositoryInterface;
-use App\Infrastructure\Models\Category;
+use App\Infrastructure\Persistence\Eloquent\Models\Category;
 
 class EloquentCategoryRepository implements CategoryRepositoryInterface
 {
@@ -13,7 +13,7 @@ class EloquentCategoryRepository implements CategoryRepositoryInterface
         $query = Category::query();
         
         if ($active !== null) {
-            $query->where('active', $active);
+            $query->where('is_active', $active);
         }
         
         if ($parentId !== null) {

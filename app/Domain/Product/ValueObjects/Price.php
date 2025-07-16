@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Domain\Product\ValueObjects;
+use JsonSerializable;
 
-class Price
+class Price implements JsonSerializable
 {
     private float $value;
 
@@ -27,5 +28,11 @@ class Price
     public function __toString(): string
     {
         return (string) $this->value;
+    }
+
+    // MÉTODO REQUERIDO para JsonSerializable
+    public function jsonSerialize(): mixed
+    {
+        return $this->value;
     }
 }

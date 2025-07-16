@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Domain\Product\ValueObjects;
+use JsonSerializable;
 
-class Stock
+class Stock implements JsonSerializable
 {
     private int $quantity;
     private int $minQuantity;
@@ -50,5 +51,14 @@ class Stock
     public function add(int $quantity): Stock
     {
         return new Stock($this->quantity + $quantity, $this->minQuantity);
+    }
+
+    // MÉTODO REQUERIDO para JsonSerializable
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'quantity' => $this->quantity,
+            'minQuantity' => $this->minQuantity,
+        ];
     }
 }

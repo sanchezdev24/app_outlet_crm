@@ -5,8 +5,9 @@ namespace App\Domain\Product\Entities;
 use App\Domain\Product\ValueObjects\Price;
 use App\Domain\Product\ValueObjects\Stock;
 use App\Domain\Product\ValueObjects\Discount;
+use JsonSerializable;
 
-class Product
+class Product implements JsonSerializable
 {
     private int $id;
     private string $name;
@@ -155,5 +156,31 @@ class Product
     {
         $this->isActive = false;
         $this->updatedAt = new \DateTime();
+    }
+
+    // Implementar JsonSerializable para serialización correcta
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'description' => $this->description,
+            'sku' => $this->sku,
+            'price' => $this->price,
+            'stock' => $this->stock,
+            'discount' => $this->discount,
+            'categoryId' => $this->categoryId,
+            'brandId' => $this->brandId,
+            'images' => $this->images,
+            'isActive' => $this->isActive,
+            'createdAt' => $this->createdAt,
+            'updatedAt' => $this->updatedAt,
+        ];
+    }
+
+    // Método alternativo toArray() si prefieres no usar JsonSerializable
+    public function toArray(): array
+    {
+        return $this->jsonSerialize();
     }
 }
